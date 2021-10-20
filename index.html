@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <!-- <script src="Color.js" type="module"></script> -->
+    <script src="cave_generator.js"></script>
+
+    <title>Document</title>
+</head>
+
+<body>
+    <canvas id="canvas"></canvas>
+    <script type="module">
+
+        import Color from "../Color.js"
+
+        let generator;
+        let color = new Color(0, 0, 255);
+
+        createModule().then((Module) => {
+            let cells = [];
+
+            const generateCave = function (gen) {
+                let buff = generator.generate();
+                cells = [];
+                for (let i = 0; i < buff.size(); i++) {
+                    cells.push(buff.get(i));
+
+                }
+
+                return cells;
+            }
+
+            const drawCave = function () {
+
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < cells.length; i++) {
+
+                    let x = i % generator.getWidth();
+                    let y = Math.floor(i / generator.getWidth());
+
+                    let val = cells[i];
+                    color.set(val, val, val);
+                    // console.log(`x: ${x}, y: ${y}`);
+                    ctx.fillStyle = color.toHexString();
+                    ctx.fillRect(x * 5, y * 5, 5, 5);
+                }
+            }
+
+            generator = new Module.CaveGenerator();
+            generator.setThreshold(100);
+            generator.setWidth(128);
+            generator.setHeight(128);
+            generateCave(generator);
+
+
+            let canvas = document.getElementById("canvas");
+            let ctx = canvas.getContext("2d");
+            window.addEventListener("resize", () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                drawCave();
+            })
+            let resize = new Event("resize");
+            window.dispatchEvent(resize);
+
+
+            canvas.addEventListener("click", () => {
+                generateCave(generator);
+                drawCave();
+            })
+
+            // let interval = setInterval(() => {
+            //     generateCave();
+            //     drawCave();
+
+
+            // }, 500)
+
+
+
+
+
+        });
+    </script>
+</body>
+
+</html>
