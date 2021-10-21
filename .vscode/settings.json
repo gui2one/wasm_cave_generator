@@ -97,5 +97,6 @@
         "cfenv": "cpp",
         "cinttypes": "cpp",
         "iostream": "cpp"
-    }
+    },
+    "npm-scripts.showStartNotification": false
 }

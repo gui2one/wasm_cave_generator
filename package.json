@@ -6,7 +6,7 @@
   "scripts": {
     "serve": "npx live-server ./dist",
     "build-wasm": "build_wasm_command.bat",
-    "copy-files": "copyfiles -f ./js/* ./index.html ./style.css ./dist",
+    "copy-files": "copyfiles -f ./js/* ./index.html ./style.css ./favicon.ico ./dist",
     "build": "npm run copy-files && npm run build-wasm"
   },
   "keywords": [],
@@ -14,5 +14,6 @@
   "license": "ISC",
   "devDependencies": {
     "copyfiles": "^2.4.1"
-  }
+  },
+  "dependencies": {}
 }
