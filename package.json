@@ -2,12 +2,12 @@
   "name": "web_assembly",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
   "scripts": {
-    "serve": "npx live-server ./dist",
-    "build-wasm": "build_wasm_command.bat",
-    "copy-files": "copyfiles -f ./js/* ./index.html ./style.css ./favicon.ico ./dist",
-    "build": "npm run copy-files && npm run build-wasm"
+    "build-wasm": "build_wasm_command.bat && npm run copy-wasm",
+    "copy-wasm": "copyfiles -f ./build/*  ./src && copyfiles -f ./build/*.wasm  ./dist",
+    "build": "parcel build src/index.html",
+    "watch": "parcel watch src/index.html",
+    "serve": "parcel serve src/index.html"
   },
   "keywords": [],
   "author": "",
@@ -15,5 +15,11 @@
   "devDependencies": {
     "copyfiles": "^2.4.1"
   },
-  "dependencies": {}
+  "dependencies": {
+    "buffer": "^6.0.3",
+    "fs": "0.0.1-security",
+    "parcel": "^2.0.0",
+    "path": "^0.12.7",
+    "process": "^0.11.10"
+  }
 }

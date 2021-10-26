@@ -1,4 +1,5 @@
-import Color from "../Color.js"
+import Color from "../js/Color"
+import createModule from "./cave_generator"
 
 let generator;
 let color = new Color(0, 0, 255);
@@ -33,14 +34,15 @@ createModule().then((Module) => {
         }
     }
 
+    let val = "hello"
     generator = new Module.CaveGenerator();
-    generator.setThreshold(100);
-    generator.setWidth(32);
-    generator.setHeight(32);
+    generator.setThreshold(120);
+    generator.setWidth(128);
+    generator.setHeight(128);
     generateCave(generator);
 
 
-    let canvas = document.getElementById("canvas");
+    let canvas: HTMLCanvasElement = document.getElementById("canvas") as HTMLCanvasElement;
     let ctx = canvas.getContext("2d");
     window.addEventListener("resize", () => {
         canvas.width = window.innerWidth;
@@ -50,18 +52,16 @@ createModule().then((Module) => {
     let resize = new Event("resize");
     window.dispatchEvent(resize);
 
-
+    let seed = 0;
     canvas.addEventListener("click", () => {
+
+        seed += 10;
+        generator.setRandomSeed(seed);
         generateCave(generator);
+
         drawCave();
     })
 
-    // let interval = setInterval(() => {
-    //     generateCave();
-    //     drawCave();
-
-
-    // }, 500)
 
 
 

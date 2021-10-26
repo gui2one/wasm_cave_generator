@@ -1,4 +1,4 @@
-emcc -I. -o dist/cave_generator.js ^
+emcc -I. -o build/cave_generator.js ^
 -Oz ^
 -s MODULARIZE=1 ^
 -s EXPORT_NAME=createModule ^

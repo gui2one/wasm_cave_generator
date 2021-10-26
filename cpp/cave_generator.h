@@ -11,6 +11,7 @@ class CaveGenerator
 public:
     Grid m_grid;
     std::vector<int> cells;
+    int m_seed;
 
     int threshold = 150;
 
@@ -25,6 +26,7 @@ public:
 
     void setThreshold(int value) { threshold = value; }
 
+    void setRandomSeed(int seed) { m_seed = seed; }
     void fillRandom();
 
     void inspect(std::vector<int> cells_to_inspect);

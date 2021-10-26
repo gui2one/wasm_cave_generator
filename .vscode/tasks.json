@@ -6,7 +6,7 @@
         {
             "label": "build_wasm",
             "type": "shell",
-            "command": "./build_wasm_command.bat",
+            "command": "npm run build-wasm",
             "problemMatcher": [
                 "$eslint-compact"
             ],

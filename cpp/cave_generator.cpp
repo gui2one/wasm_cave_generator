@@ -9,10 +9,10 @@
 EMSCRIPTEN_KEEPALIVE
 CaveGenerator::CaveGenerator()
 {
-
+    m_seed = 0;
     m_grid.setResX(32);
     m_grid.setResY(32);
-    // printf("Cave Generation started ... \n");
+    printf("--- C++ Cave Generator ---\n");
     for (size_t j = 0; j < m_grid.m_resy; j++)
     {
         for (size_t i = 0; i < m_grid.m_resx; i++)
@@ -28,7 +28,8 @@ EMSCRIPTEN_KEEPALIVE
 void CaveGenerator::fillRandom()
 {
     auto secs = std::chrono::system_clock::now().time_since_epoch();
-    std::srand(secs.count());
+    // std::srand(secs.count());
+    std::srand(m_seed);
     std::vector<int> values;
     for (size_t y = 0; y < m_grid.m_resy; y++)
     {
@@ -44,7 +45,7 @@ void CaveGenerator::fillRandom()
     m_grid.m_cells = values;
 }
 
-EMSCRIPTEN_KEEPALIVE
+// EMSCRIPTEN_KEEPALIVE
 void CaveGenerator::smooth(int iterations)
 {
     for (int i = 0; i < iterations; i++)
@@ -135,21 +136,21 @@ void CaveGenerator::inspect(std::vector<int> cells_to_inspect)
     // m_grid.m_cells = cells;
 }
 
-EMSCRIPTEN_KEEPALIVE
+// EMSCRIPTEN_KEEPALIVE
 int CaveGenerator::getCellByCoords(int x, int y, std::vector<int> &cur_cells)
 {
     int index = y * m_grid.m_resx + x;
     return cur_cells[index];
 }
 
-EMSCRIPTEN_KEEPALIVE
+// EMSCRIPTEN_KEEPALIVE
 int CaveGenerator::getIndexByCoords(int x, int y)
 {
     int index = y * m_grid.m_resx + x;
     return index;
 }
 
-EMSCRIPTEN_KEEPALIVE
+// EMSCRIPTEN_KEEPALIVE
 int CaveGenerator::getNumNeighbours(int index)
 {
     int x = index % m_grid.m_resx;
@@ -211,6 +212,7 @@ EMSCRIPTEN_BINDINGS(CaveGenerator_example)
         .function("getWidth", &CaveGenerator::getWidth)
         .function("setWidth", &CaveGenerator::setWidth)
         .function("getHeight", &CaveGenerator::getHeight)
-        .function("setHeight", &CaveGenerator::setHeight);
+        .function("setHeight", &CaveGenerator::setHeight)
+        .function("setRandomSeed", &CaveGenerator::setRandomSeed);
     emscripten::register_vector<int>("vector<int>");
 }
