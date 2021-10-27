@@ -56,7 +56,7 @@ void CaveGenerator::smooth(int iterations)
         {
             for (int x = 0; x < m_grid.m_resx; x++)
             {
-                int index = getIndexByCoords(x, y);
+                int index = getCellIndex(x, y);
                 int num = getNumNeighbours(index);
 
                 if (num > 4)
@@ -105,7 +105,7 @@ std::vector<int> CaveGenerator::make_blob(Grid &grid, int mask_value, std::vecto
     return blob;
 }
 
-void CaveGenerator::inspect(std::vector<int> cells_to_inspect)
+void CaveGenerator::inspect()
 {
     // blobs are here to collect the different filled areas
     std::vector<std::vector<int>> blobs;
@@ -144,7 +144,7 @@ int CaveGenerator::getCellByCoords(int x, int y, std::vector<int> &cur_cells)
 }
 
 // EMSCRIPTEN_KEEPALIVE
-int CaveGenerator::getIndexByCoords(int x, int y)
+int CaveGenerator::getCellIndex(int x, int y)
 {
     int index = y * m_grid.m_resx + x;
     return index;
@@ -197,8 +197,8 @@ EMSCRIPTEN_KEEPALIVE
 std::vector<int> CaveGenerator::generate()
 {
     fillRandom();
-    smooth(15);
-    inspect(m_grid.m_cells);
+    smooth(m_smooth_iterations);
+    // inspect();
     return m_grid.m_cells;
 }
 
@@ -213,6 +213,7 @@ EMSCRIPTEN_BINDINGS(CaveGenerator_example)
         .function("setWidth", &CaveGenerator::setWidth)
         .function("getHeight", &CaveGenerator::getHeight)
         .function("setHeight", &CaveGenerator::setHeight)
-        .function("setRandomSeed", &CaveGenerator::setRandomSeed);
+        .function("setRandomSeed", &CaveGenerator::setRandomSeed)
+        .function("setSmoothIterations", &CaveGenerator::setSmoothIterations);
     emscripten::register_vector<int>("vector<int>");
 }

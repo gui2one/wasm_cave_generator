@@ -96,7 +96,9 @@
         "thread": "cpp",
         "cfenv": "cpp",
         "cinttypes": "cpp",
-        "iostream": "cpp"
+        "iostream": "cpp",
+        "set": "cpp",
+        "unordered_set": "cpp"
     },
     "npm-scripts.showStartNotification": false
 }

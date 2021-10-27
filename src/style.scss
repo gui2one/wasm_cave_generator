@@ -1,0 +1,19 @@
+*,*::before,*::after {
+    padding: 0px;
+    margin: 0px;
+    box-sizing: border-box;
+}
+html, body{
+    overflow-x : hidden;
+}
+
+canvas{
+    display: block;
+    overflow-x : hidden;
+}
+
+// ui title bar
+.tp-rotv_t {
+    // color: red;
+    user-select: none;
+}

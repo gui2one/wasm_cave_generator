@@ -13,6 +13,8 @@ public:
     std::vector<int> cells;
     int m_seed;
 
+    int m_smooth_iterations = 10;
+
     int threshold = 150;
 
 public:
@@ -29,13 +31,15 @@ public:
     void setRandomSeed(int seed) { m_seed = seed; }
     void fillRandom();
 
-    void inspect(std::vector<int> cells_to_inspect);
+    void inspect();
 
     int getCellByCoords(int x, int y, std::vector<int> &cur_cells);
 
-    int getIndexByCoords(int x, int y);
+    int getCellIndex(int x, int y);
 
     int getNumNeighbours(int index);
+
+    void setSmoothIterations(int num) { m_smooth_iterations = num; };
 
     void smooth(int iterations);
 
